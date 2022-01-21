@@ -53,12 +53,16 @@
 	}
 
 	function handleDragDrop(e) {
+		console.log('ドロップされました')
 		e.preventDefault()
 		var element_id = e
 			.dataTransfer
-			.getDate('text')
-		dropped = dropped.concat(element_id)
-		dropped_in = true
+			// .types
+			.files
+		console.log(element_id[0])
+		preview(element_id[0])
+		// dropped = dropped.concat(element_id)
+		// dropped_in = true
 		status = "You Droped"
 	}
 
@@ -146,6 +150,10 @@
 		height: 200px;
 		width: 280px;
 		border: #999 1px solid;
+	}
+	img {
+		height: 200px;
+		width: 280px;
 	}
 
 </style>

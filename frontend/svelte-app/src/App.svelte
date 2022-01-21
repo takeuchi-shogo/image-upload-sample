@@ -1,14 +1,10 @@
 <script>
-	import axios, { headers } from 'axios/dist/axios';
+	import axios from 'axios/dist/axios';
 
-	let name ='world'
 
-	let drop_zone
 	let status = ''
 
 	let dropped = []
-	let dropped_in = ''
-	let object
 
 	let files = []
 	let file
@@ -97,7 +93,6 @@
 		on:dragenter="{handleDragEventer}"
 		
 		on:drop="{handleDragDrop}"
-		bind:this="{drop_zone}"
 		id="drop_zone"
 		ondragover="return false"
 	>

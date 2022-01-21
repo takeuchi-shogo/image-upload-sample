@@ -1,5 +1,7 @@
 golang-image-upload
 
+Config.go
+
 img/*
 
 !.gitkeep

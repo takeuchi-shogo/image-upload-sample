@@ -7,12 +7,10 @@ import (
 )
 
 func main() {
+	// config := config.Config.NewConfig()
 	r := gin.Default()
-	// r.GET("/", func(c *gin.Context) {
-	// 	c.JSON(200, gin.H{
-	// 		"message": "ping",
-	// 	})
-	// })
+
+	r.GET("/images", handler.Download)
 	r.POST("/images", handler.Uploader)
 
 	r.Run(":8080")

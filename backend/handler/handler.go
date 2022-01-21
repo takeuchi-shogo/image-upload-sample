@@ -7,6 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func Download(c *gin.Context) {
+	S3Download()
+
+	c.JSON(http.StatusOK, gin.H{"message": "download success!!"})
+}
+
 func Uploader(c *gin.Context) {
 	form, err := c.MultipartForm()
 	if err != nil {

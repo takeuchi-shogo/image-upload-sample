@@ -1,0 +1,24 @@
+package config
+
+type Config struct {
+	AwsS3 struct {
+		AccessKeyID     string
+		SecretAccessKey string
+
+		Bucket string
+		Region string
+	}
+}
+
+func NewConfig() *Config {
+
+	c := new(Config)
+
+	c.AwsS3.AccessKeyID = "Your AccessKeyID"
+	c.AwsS3.SecretAccessKey = "Your SecretAccessKey"
+
+	c.AwsS3.Bucket = "Your Bucket"
+	c.AwsS3.Region = "Your Region"
+
+	return c
+}

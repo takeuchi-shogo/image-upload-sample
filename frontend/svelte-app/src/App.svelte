@@ -151,9 +151,5 @@
 		width: 280px;
 		border: #999 1px solid;
 	}
-	img {
-		height: 200px;
-		width: 280px;
-	}
 
 </style>

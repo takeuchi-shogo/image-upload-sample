@@ -24,14 +24,19 @@ func Uploader(c *gin.Context) {
 	fmt.Println("size: ", files[0].Size)
 
 	f, err := files[0].Open()
-	fmt.Println("err: ", err)
-	fmt.Println("f: ", f)
+	if err != nil {
+		c.JSON(400, err)
+	}
+
 	// 画像をアップロードしてURLを取得したい
 	for _, file := range files {
+		// imgファイルに保存
 		err := c.SaveUploadedFile(file, "img/"+file.Filename)
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
 		}
+		// S3にアップロード
+		S3Upload(file.Filename)
 	}
 
 	_, format, err := image.DecodeConfig(f)

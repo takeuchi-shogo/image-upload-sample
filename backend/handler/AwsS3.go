@@ -12,7 +12,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
-func S3Upload() {
+func S3Upload(fileName string) {
 	c := config.NewConfig()
 
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
@@ -26,15 +26,15 @@ func S3Upload() {
 		Profile: "default",
 	}))
 
-	targetFilePath := "./sample.txt"
+	targetFilePath := "img/" + fileName // S3の中のimgフォルダに保存する
 	file, err := os.Open(targetFilePath)
 	if err != nil {
 		log.Fatal("err: ", err)
 	}
 	defer file.Close()
 
-	bucketName := c.AwsS3.Bucket // 保存するバケットの名前
-	objectKey := "sample-key"    // ここはS3に保存される名前になる
+	bucketName := c.AwsS3.Bucket      // 保存するバケットの名前
+	objectKey := "sample/" + fileName // ここはS3に保存される名前になる
 
 	uploader := s3manager.NewUploader(sess)
 	_, err = uploader.Upload(&s3manager.UploadInput{
@@ -44,8 +44,10 @@ func S3Upload() {
 	})
 	if err != nil {
 		log.Fatal(err)
+		return
 	}
 	log.Println("done")
+	os.Remove("img/" + fileName) // アップロードすれば削除する
 }
 
 // func S3Download() {

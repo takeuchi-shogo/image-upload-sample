@@ -10,7 +10,7 @@ func main() {
 	// config := config.Config.NewConfig()
 	r := gin.Default()
 
-	r.GET("/images", handler.Download)
+	// r.GET("/images", handler.Download)
 	r.POST("/images", handler.Uploader)
 
 	r.Run(":8080")

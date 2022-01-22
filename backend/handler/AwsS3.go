@@ -1,10 +1,6 @@
 package handler
 
 import (
-	"bytes"
-	"fmt"
-	"image"
-	"image/jpeg"
 	"log"
 	"os"
 
@@ -13,7 +9,6 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/credentials"
 	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 )
 
@@ -53,48 +48,48 @@ func S3Upload() {
 	log.Println("done")
 }
 
-func S3Download() {
-	c := config.NewConfig()
+// func S3Download() {
+// 	c := config.NewConfig()
 
-	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		Config: aws.Config{
-			Credentials: credentials.NewStaticCredentialsFromCreds(credentials.Value{
-				AccessKeyID:     c.AwsS3.AccessKeyID,
-				SecretAccessKey: c.AwsS3.SecretAccessKey,
-			}),
-			Region: aws.String(c.AwsS3.Region),
-		},
-		Profile: "default",
-	}))
+// 	sess := session.Must(session.NewSessionWithOptions(session.Options{
+// 		Config: aws.Config{
+// 			Credentials: credentials.NewStaticCredentialsFromCreds(credentials.Value{
+// 				AccessKeyID:     c.AwsS3.AccessKeyID,
+// 				SecretAccessKey: c.AwsS3.SecretAccessKey,
+// 			}),
+// 			Region: aws.String(c.AwsS3.Region),
+// 		},
+// 		Profile: "default",
+// 	}))
 
-	d := s3manager.NewDownloader(sess)
+// 	d := s3manager.NewDownloader(sess)
 
-	// ダウンロードしたデータを入れるものが必要
-	buf := aws.NewWriteAtBuffer([]byte{})
+// 	// ダウンロードしたデータを入れるものが必要
+// 	buf := aws.NewWriteAtBuffer([]byte{})
 
-	n, err := d.Download(buf, &s3.GetObjectInput{
-		Bucket: aws.String(c.AwsS3.Bucket),
-		Key:    aws.String("BotIcon.jpeg"),
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+// 	n, err := d.Download(buf, &s3.GetObjectInput{
+// 		Bucket: aws.String(c.AwsS3.Bucket),
+// 		Key:    aws.String("BotIcon.jpeg"),
+// 	})
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
-	var img image.Image
-	fmt.Println(img)
+// 	var img image.Image
+// 	fmt.Println(img)
 
-	img, err = jpeg.Decode((bytes.NewReader(buf.Bytes())))
-	if err != nil {
-		log.Fatal(err)
-	}
+// 	img, err = jpeg.Decode((bytes.NewReader(buf.Bytes())))
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
 
-	w, _ := os.Create("./img/BotIconDownload.jpeg")
-	jpeg.Encode(w, img, &jpeg.Options{Quality: 100})
+// 	w, _ := os.Create("./img/BotIconDownload.jpeg")
+// 	jpeg.Encode(w, img, &jpeg.Options{Quality: 100})
 
-	// data := bytes.NewBuffer(buf.Bytes()).String()
-	// fmt.Println(data)
-	fmt.Println("size: ", n)
+// 	// data := bytes.NewBuffer(buf.Bytes()).String()
+// 	// fmt.Println(data)
+// 	fmt.Println("size: ", n)
 
-	// c.JSON(200, "success!!")
+// 	// c.JSON(200, "success!!")
 
-}
+// }
